@@ -8,6 +8,8 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/prometheus/prometheus)
 [![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/prometheus.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:prometheus)
 
+*Modified Containernet compatible prometheus docker image: https://hub.docker.com/r/abh15/myprom*
+
 Visit [prometheus.io](https://prometheus.io) for the full documentation,
 examples and guides.
 
