@@ -1,6 +1,7 @@
 ARG ARCH="amd64"
 ARG OS="linux"
-FROM quay.io/prometheus/busybox-${OS}-${ARCH}:latest
+FROM amd64/alpine:3.14.2
+RUN apk add bash tcpdump iperf busybox-extras iproute2 iputils
 LABEL maintainer="The Prometheus Authors <prometheus-developers@googlegroups.com>"
 
 ARG ARCH="amd64"
@@ -13,16 +14,10 @@ COPY consoles/                              /usr/share/prometheus/consoles/
 COPY LICENSE                                /LICENSE
 COPY NOTICE                                 /NOTICE
 COPY npm_licenses.tar.bz2                   /npm_licenses.tar.bz2
-
+COPY ex.sh /ex.sh
+RUN chmod +x /ex.sh
 WORKDIR /prometheus
 RUN ln -s /usr/share/prometheus/console_libraries /usr/share/prometheus/consoles/ /etc/prometheus/ && \
     chown -R nobody:nobody /etc/prometheus /prometheus
-
-USER       nobody
-EXPOSE     9090
 VOLUME     [ "/prometheus" ]
-ENTRYPOINT [ "/bin/prometheus" ]
-CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
-             "--storage.tsdb.path=/prometheus", \
-             "--web.console.libraries=/usr/share/prometheus/console_libraries", \
-             "--web.console.templates=/usr/share/prometheus/consoles" ]
+ENTRYPOINT ["bash", "/ex.sh"]
